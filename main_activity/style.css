@@ -11,8 +11,6 @@ body{
 .video{
     height: 100%;
     width:100%;
-    transform: scale(1.5);
-   
 }
 .record-btn,.capture-btn{
     height: 4.5rem;

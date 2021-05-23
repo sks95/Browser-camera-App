@@ -3,8 +3,11 @@ let capturebtn = document.querySelector("#capture");
 let timingELem = document.querySelector("#timing");
 let allFilters = document.querySelectorAll(".filter");
 let clearObj;
+let zoomInElem = document.querySelector('#plus-container');
+let zoomOutElem = document.querySelector('#minus-container');
 let uiFilter = document.querySelector(".ui-filter");
 let filterColor = "";
+let zoomLevel = 1;
 let constraints = {
     video: true,
     audio: true
@@ -72,8 +75,10 @@ capturebtn.addEventListener("click", function () {
     // draw a frame on that canvas
     tool.drawImage(videoElem, 0, 0);
     // translucent 
-    tool.fillStyle = filterColor;
-    tool.fillRect(0, 0, canvas.width, canvas.height);
+    if(filterColor){
+        tool.fillStyle = filterColor;
+        tool.fillRect(0, 0, canvas.width, canvas.height);
+    }
     // above layer things are drawn
     // toDataUrl 
     let link = canvas.toDataURL();
@@ -122,3 +127,17 @@ for (let i = 0; i < allFilters.length; i++) {
         }
     })
 }
+
+// zoom in zoom out 
+zoomInElem.addEventListener('click', function(){
+    zoomLevel += 0.2;
+    if(zoomLevel < 3){
+        videoElem.style.transform = `scale(${zoomLevel})`;
+    }
+})
+zoomOutElem.addEventListener('click', function(){
+    zoomLevel -= 0.2;
+    if(zoomLevel > 1){
+        videoElem.style.transform = `scale(${zoomLevel})`;
+    }
+})
